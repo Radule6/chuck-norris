@@ -28,7 +28,7 @@ const registerUserService = async (firstName: string, lastName: string, email: s
     return false;
   }
 
-  const createUser = await userModel.create({ firstName, lastName, email, password });
+  const createUser = await userModel.create({ firstName, lastName, email, password, emailConfirmed: false });
 
   if (createUser) {
     return {
@@ -36,6 +36,7 @@ const registerUserService = async (firstName: string, lastName: string, email: s
       firstName: createUser.firstName,
       lastName: createUser.lastName,
       email: createUser.email,
+      emailConfirmed: createUser.emailConfirmed,
     };
   } else {
     return false;
@@ -47,6 +48,12 @@ const loginUserService = async (email: string, password: string) => {
 
   if (!user) {
     return false;
+  }
+
+  if (!user.emailConfirmed) {
+    throw new Error(
+      'Please check your email inbox for further instructions to complete the confirmation process. Thank you!',
+    );
   }
 
   const checkPass = await userPasswordService(password, user.password);
@@ -63,4 +70,15 @@ const loginUserService = async (email: string, password: string) => {
   };
 };
 
-export { registerUserService, loginUserService, userExistsService };
+const confirmUserService = async (email: string) => {
+  const query = { email: email };
+  const emailConfirmed = { emailConfirmed: true };
+
+  try {
+    await userModel.findOneAndUpdate(query, emailConfirmed);
+  } catch (error) {
+    throw new Error('Not able to authorize user');
+  }
+};
+
+export { registerUserService, loginUserService, userExistsService, confirmUserService };

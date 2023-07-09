@@ -3,9 +3,9 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user/userRoutes';
 import chuckRoutes from './routes/chucknorris/chuckNorrisRoutes';
-import mailRoutes from './routes/mail/mailRoutes';
+import confirmationRoutes from './routes/mail/mailRoutes';
 import { errorHandler, notFound } from './middleware/errorMiddleWare';
-import connectDb from './config/db';
+import connectDb from './config/dbConfig';
 
 dotenv.config();
 
@@ -25,7 +25,7 @@ app.use('/api/user', userRoutes);
 
 app.use('/api/chucknorris', chuckRoutes);
 
-app.use('/api/mail', mailRoutes);
+app.use('/api/confirmation', confirmationRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('API is running....');

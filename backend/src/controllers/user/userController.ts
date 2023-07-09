@@ -1,7 +1,8 @@
 import { Response, Request } from 'express';
 import asyncHandler from 'express-async-handler';
 import { registerUserService, loginUserService } from '../../services/user/userServices';
-import generateJWT from '../../utils/generateJWT';
+import { sendMailService } from '../../services/mail/mailService';
+import { generateJWT } from '../../utils/generateJWT';
 
 /*
 @desc Login User
@@ -21,6 +22,10 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
     res.status(201).json({
       ...loginUser,
     });
+  } else {
+    res.status(404);
+
+    throw new Error('Invalid credentials');
   }
 });
 
@@ -38,6 +43,8 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
   if (registerUser) {
     generateJWT(res, registerUser.email);
+
+    await sendMailService(registerUser.email);
 
     res.status(201).json({
       ...registerUser,
@@ -58,6 +65,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
 const logoutUser = asyncHandler(async (req: Request, res: Response) => {
   res.cookie('token', '', { httpOnly: true, expires: new Date(0) });
+
   res.status(200).json({ message: 'Logged out successfully' });
 });
 

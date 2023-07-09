@@ -1,7 +1,7 @@
 import express from 'express';
-import { sendMail } from '../../controllers/mail/mailController';
+import { mailConfirmation } from '../../controllers/mail/mailController';
 const router = express.Router();
 
-router.post('/', sendMail);
+router.get('/:token', mailConfirmation);
 
 export default router;

@@ -1,14 +1,18 @@
 import { Response, Request } from 'express';
 import asyncHandler from 'express-async-handler';
+import { verifyMailJWT } from '../../utils/verifyMailJWT';
+import { confirmUserService } from '../../services/user/userServices';
 
 /*
-@desc Send Mail 
+@desc Login User
 @Method POST
-@Api Endpoint /api/mail
-@access Private
+@Api Endpoint /api/confimation/:token
+@access Public
  */
-const sendMail = asyncHandler(async (req: Request, res: Response) => {
-  res.status(200).json({ message: 'Send Mail' });
+const mailConfirmation = asyncHandler(async (req: Request, res: Response) => {
+  const confirmationToken = req.params['token'];
+  const emailToConfirm = await verifyMailJWT(res, confirmationToken);
+  await confirmUserService(emailToConfirm);
 });
 
-export { sendMail };
+export { mailConfirmation };
