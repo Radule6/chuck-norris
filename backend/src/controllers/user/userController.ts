@@ -19,7 +19,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   if (loginUser) {
     generateJWT(res, loginUser.email);
 
-    res.status(201).json({
+    res.status(200).json({
       ...loginUser,
     });
   } else {
@@ -41,19 +41,15 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
   const registerUser = await registerUserService(firstName, lastName, email, password);
 
-  if (registerUser) {
-    generateJWT(res, registerUser.email);
-
-    await sendMailService(registerUser.email);
-
-    res.status(201).json({
-      ...registerUser,
-    });
-  } else {
+  //this will be forwarded to my error middleware
+  if (typeof registerUser === 'string') {
     res.status(400);
-
-    throw new Error('Invalid data');
+    throw new Error(registerUser);
   }
+  await sendMailService(registerUser.email);
+  res.status(201).json({
+    ...registerUser,
+  });
 });
 
 /*

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/chuckNorris.gif" />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <div class="app-image">
+          <a href="/">
+            <img src="../assets/chuckNorris.gif" alt="Chuck Norris dancing" />
+          </a>
+        </div>
+        <a href="/">
+          <h1>Chuckster's Joke Factory</h1>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a class="register" href="/register">Register</a>
+        </li>
+        <li>
+          <a class="login" href="/login">Login</a>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <section class="form-section">
+        <form class="form register-form">
+          <p class="title">Register</p>
+          <p class="message">Register now and get full access to our app.</p>
+          <div class="flex">
+            <label>
+              <input required placeholder="First Name" name="firstName" type="text" class="input" />
+            </label>
+
+            <label>
+              <input required placeholder="Last Name" name="lastName" type="text" class="input" />
+            </label>
+          </div>
+
+          <label>
+            <input required placeholder="Email" name="email" type="email" class="input" />
+          </label>
+
+          <label>
+            <input required placeholder="Password" name="password" type="password" class="input" />
+          </label>
+          <button class="submit">Submit</button>
+          <p class="signin">Already have an acount ? <a href="/">Login</a></p>
+        </form>
+      </section>
+    </main>
+    <script src="../scripts/app.js"></script>
+    <script src="../scripts/submitRegister.js"></script>
+  </body>
+</html>

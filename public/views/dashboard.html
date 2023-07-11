@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    Dashboard
+  </body>
+  <script>
+    const logoutUser = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/user/logout', {
+          method: 'POST',
+        });
+
+        if (response.ok) {
+          console.log('Logout successful!');
+          // Perform any additional actions after successful logout
+        } else {
+          const errorData = await response.json();
+          console.log('Logout failed:', errorData.error);
+          // Handle the logout error
+        }
+      } catch (error) {
+        console.error('An error occurred during logout:', error);
+        // Handle any network or server error
+      }
+    };
+
+    // logoutUser();
+  </script>
+  </script>
+</html>

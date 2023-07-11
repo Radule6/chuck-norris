@@ -25,7 +25,7 @@ const registerUserService = async (firstName: string, lastName: string, email: s
   const checkUser = await userExistsService(email);
 
   if (checkUser) {
-    return false;
+    return 'User already exists';
   }
 
   const createUser = await userModel.create({ firstName, lastName, email, password, emailConfirmed: false });
@@ -39,7 +39,7 @@ const registerUserService = async (firstName: string, lastName: string, email: s
       emailConfirmed: createUser.emailConfirmed,
     };
   } else {
-    return false;
+    return 'Invalid input. Try again.';
   }
 };
 

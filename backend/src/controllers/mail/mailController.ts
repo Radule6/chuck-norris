@@ -13,6 +13,7 @@ const mailConfirmation = asyncHandler(async (req: Request, res: Response) => {
   const confirmationToken = req.params['token'];
   const emailToConfirm = await verifyMailJWT(res, confirmationToken);
   await confirmUserService(emailToConfirm);
+  res.redirect('/login');
 });
 
 export { mailConfirmation };

@@ -10,6 +10,10 @@ const errorHandler = (err: Error, req: Request, res: Response, next: NextFunctio
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message;
 
+  if (err.message === 'User already exists' || err.message === 'Invalid input. Try again.') {
+    statusCode = 400;
+  }
+
   if (err.name === 'CastError') {
     statusCode = 404;
     message = 'Not Found';
