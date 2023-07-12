@@ -2,7 +2,7 @@ import { Response, Request } from 'express';
 import asyncHandler from 'express-async-handler';
 import { registerUserService, loginUserService } from '../../services/user/userServices';
 import { sendMailService } from '../../services/mail/mailService';
-import { generateJWT } from '../../utils/generateJWT';
+import { generateJWT, validateLoginInput, validateRegistrationInput, sanitizeInput } from '../../utils/';
 
 /*
 @desc Login User
@@ -10,9 +10,14 @@ import { generateJWT } from '../../utils/generateJWT';
 @Api Endpoint /api/user/login
 @access Public
  */
-
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password } = sanitizeInput(req.body);
+
+  const validationErrors = validateLoginInput(email, password);
+  if (validationErrors.length > 0) {
+    res.status(400);
+    throw new Error(validationErrors.join('\n'));
+  }
 
   const loginUser = await loginUserService(email, password);
 
@@ -35,13 +40,16 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 @Api Endpoint /api/user/register
 @access Public
  */
-
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password } = sanitizeInput(req.body);
 
+  const validationErrors = validateRegistrationInput(firstName, lastName, email, password);
+  if (validationErrors.length > 0) {
+    res.status(400);
+    throw new Error(validationErrors.join('\n'));
+  }
   const registerUser = await registerUserService(firstName, lastName, email, password);
 
-  //this will be forwarded to my error middleware
   if (typeof registerUser === 'string') {
     res.status(400);
     throw new Error(registerUser);

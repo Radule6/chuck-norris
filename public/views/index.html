@@ -6,6 +6,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="../styles/style.css" />
     <link rel="icon" type="image/x-icon" href="../assets/chuckNorris.gif" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   </head>
   <body>
     <nav>
@@ -19,14 +20,20 @@
           <h1>Chuckster's Joke Factory</h1>
         </a>
       </div>
-      <ul class="nav-links">
-        <li>
-          <a class="register" href="/register">Register</a>
-        </li>
-        <li>
-          <a class="login" href="/login">Login</a>
-        </li>
-      </ul>
+
+      <div class="navigation-menu">
+        <div class="nav-icon">
+          <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a class="register" href="/register">Register</a>
+          </li>
+          <li>
+            <a class="login" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
     </nav>
     <main>
       <section class="hero">
@@ -47,5 +54,6 @@
         </div>
       </section>
     </main>
+    <script src="../scripts/app.js"></script>
   </body>
 </html>

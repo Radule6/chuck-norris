@@ -1,35 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/chuckNorris.gif" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   </head>
-  <body>
-    Dashboard
+  <body onload="getAQuote()">
+    <nav>
+      <div class="logo">
+        <div class="app-image">
+          <a href="/">
+            <img src="../assets/chuckNorris.gif" alt="Chuck Norris dancing" />
+          </a>
+        </div>
+        <a href="/">
+          <h1>Chuckster's Joke Factory</h1>
+        </a>
+      </div>
+      <div class="navigation-menu">
+        <div class="nav-icon">
+          <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a class="register" id="logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <section class="dashboard">
+        <div class="card">
+          <div class="card-image">
+            <img src="../assets/chuckApproves.webp" alt="" />
+          </div>
+          <div class="category">Chuck Norris</div>
+          <div class="heading"></div>
+          <div class="cta">
+            <button class="register" id="quoteButton">Get a quote</button>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
-  <script>
-    const logoutUser = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/user/logout', {
-          method: 'POST',
-        });
-
-        if (response.ok) {
-          console.log('Logout successful!');
-          // Perform any additional actions after successful logout
-        } else {
-          const errorData = await response.json();
-          console.log('Logout failed:', errorData.error);
-          // Handle the logout error
-        }
-      } catch (error) {
-        console.error('An error occurred during logout:', error);
-        // Handle any network or server error
-      }
-    };
-
-    // logoutUser();
-  </script>
-  </script>
+  <script src="../scripts/app.js"></script>
 </html>
