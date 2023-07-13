@@ -198,3 +198,10 @@ const quoteButton = document.getElementById('quoteButton');
 if (quoteButton) {
   quoteButton.addEventListener('click', getAQuote);
 }
+
+const dashboard = document.querySelector('.dashboard');
+if (dashboard) {
+  window.addEventListener('load', function () {
+    getAQuote();
+  });
+}
