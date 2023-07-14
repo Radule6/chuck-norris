@@ -10,4 +10,8 @@ describe('Fetching Chuck Norris Quote', () => {
     const response = await request(app).get('/api/chucknorris/quote').set('Cookie', cookies[0]);
     expect(response.statusCode).toBe(200);
   });
+  test('User tries to access the api endpoint without logging in', async () => {
+    const response = await request(app).get('/api/chucknorris/quote');
+    expect(response.statusCode).toBe(401);
+  });
 });
